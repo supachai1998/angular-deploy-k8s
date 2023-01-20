@@ -1,0 +1,48 @@
+# init namespace is and
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: and
+  labels:
+    name: and
+---
+#  docker image: supachai19998/angular-tour-of-heroes:test
+# expose port 4200
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: and
+  namespace: and
+  labels:
+    app: and
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: and
+  template:
+    metadata:
+      labels:
+        app: and
+    spec:
+      containers:
+      - name: and
+        image: supachai19998/angular-tour-of-heroes:test
+        ports:
+        - containerPort: 4200
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: and
+  namespace: and
+spec:
+  type: LoadBalancer
+  selector:
+    app: and
+  ports:
+  - protocol: TCP
+    port: 4200
+    targetPort: 4200
+---

@@ -1,0 +1,22 @@
+# # ingress
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: and-ingress
+  namespace: and
+spec:
+  ingressClassName: class1
+  rules:
+  - host: "test-api.ghb.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: and-service
+            port:
+              number: 4200
+
+
+---
