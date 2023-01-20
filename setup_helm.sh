@@ -1,6 +1,6 @@
 # helm setup
 
-# install helm ปกติทั่วไปตาม docs
+# install helm ปกติทั่วไปตาม docs https://kubernetes.github.io/ingress-nginx/deploy/
 apt install -y curl
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
 sudo apt-get install apt-transport-https --yes
