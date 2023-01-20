@@ -17,6 +17,9 @@ spec:
             name: and-service
             port:
               number: 4200
-
-
 ---
+
+# ถ้า apply แล้ว service "ingress-nginx-controller-admission" not found ให้ลบ ingress ออกก่อนแล้ว apply ใหม่
+# kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+# helm uninstall ingress1 --namespace and
+# helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace and --create-namespace --set controller.admissionWebhooks.enabled=false
