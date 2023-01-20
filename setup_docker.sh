@@ -12,17 +12,15 @@ docker ps -a | grep supachai19998/angular-tour-of-heroes:test
 # push
 docker push supachai19998/angular-tour-of-heroes:test
 
-# stop  and remove
-docker stop $(docker ps -a | grep supachai19998/angular-tour-of-heroes:test | awk '{print $1}')
 
 # kubectl namespace is and
 kubectl delete -f ./k8s/*
-sleep 5
+sleep 5 # รอให้ลบ pod ทั้งหมดใน servers ก่อน
 kubectl apply -f ./k8s/*
 
-docker stop $(docker ps -a | grep supachai19998/angular-tour-of-heroes:test | awk '{print $1}')
-docker rm $(docker ps -a | grep supachai19998/angular-tour-of-heroes:test | awk '{print $1}')
-docker rmi supachai19998/angular-tour-of-heroes:test
+docker stop $(docker ps -a | grep supachai19998/angular-tour-of-heroes:test | awk '{print $1}') # หยุดการทำงานของ docker container(เผื่อคนเครื่องไม่แรง)
+docker rm $(docker ps -a | grep supachai19998/angular-tour-of-heroes:test | awk '{print $1}') # ลบ docker container ที่เราสร้างไว้ 
+docker rmi supachai19998/angular-tour-of-heroes:test # ลบ image ที่เราสร้างไว้ จะได้ประหยัดพื้นที่
 
 echo ""
 echo ""

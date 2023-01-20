@@ -2,34 +2,35 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: and
+  name: and # name คือชื่อของ namespace
   labels:
-    name: and
+    name: and  # label ทุกๆ kind อื่นๆ ต้องตรงกับ label ของ namespace ทั้งโปรเจค **
 ---
 #  docker image: supachai19998/angular-tour-of-heroes:test
 # expose port 4200
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: and
-  namespace: and
+  name: and # name คือชื่อของ deployment
+  namespace: and # namespace ต้องตรงกับ namespace ของ namespace ที่กำหนดใน kind Namespace
   labels:
-    app: and
+    app: and # label ต้องตรงกับ selector
 spec:
-  replicas: 1
+  replicas: 1 # จำนวน pod ที่จะ deploy สามารถใช้คำสั่ง kubectl scale deployment/and --replicas=3 -n and เพื่อเพิ่มจำนวน pod ได้
+  # เช็คจำนวน pods ใช้คำสั่ง kubectl get pods -n and
   selector:
     matchLabels:
-      app: and
+      app: and # label ต้องตรงกับ label ของ deployment
   template:
     metadata:
       labels:
-        app: and
+        app: and # label ต้องตรงกับ selector
     spec:
       containers:
-      - name: and
-        image: supachai19998/angular-tour-of-heroes:test
+      - name: and 
+        image: supachai19998/angular-tour-of-heroes:test # image ที่จะใช้ในการ deploy โดยส่วนใหญ่จะ deploy ไปที่ docker hub หรือ private registry 
         ports:
-        - containerPort: 4200
+        - containerPort: 4200 # port ที่ expose ของ container
 ---
 # Service
 apiVersion: v1
@@ -38,9 +39,9 @@ metadata:
   name: and
   namespace: and
 spec:
-  type: LoadBalancer
+  type: LoadBalancer # ใช้ type LoadBalancer เพื่อให้ service สามารถเข้าถึงได้จากภายนอก ในบางกรณีอาจจะใช้ type NodePort แทนก็ได้ 
   selector:
-    app: and
+    app: and # ต้องตรงกับ label ของ deployment โดย service จะเชื่อมต่อกับ pod ที่มี label ตรงกับ selector (auto เองจ้า)
   ports:
   - protocol: TCP
     port: 4200
