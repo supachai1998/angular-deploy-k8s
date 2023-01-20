@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: class1
   rules:
-  - host: "test-api.ghb.com"
+  - host: "test-api.test.com"
     http:
       paths:
       - path: /
